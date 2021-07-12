@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
+    before_action :authorized, only: [:home]
 
+    def home
+        wristband = encode_token({user_id: @user.id})
+        render json: {user: UserSerializer.new(@user), token: wristband}
+    end
+    
     #Creates a new user
     def create
         user = User.create(user_params)
@@ -14,7 +20,8 @@ class UsersController < ApplicationController
     def login
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
-            render json: user
+            wristband = encode_token({user_id: user.id})
+            render json: {user: UserSerializer.new(user), token: wristband}
         else
             render json: {error: "You done goofed"}
         end
