@@ -27,6 +27,11 @@ class UsersController < ApplicationController
         end
     end
 
+    def me 
+        wristband = encode_token({user_id: @user.id})
+        render json: {user: UserSerializer.new(@user), token: wristband}
+    end
+
     private
 
     def user_params
