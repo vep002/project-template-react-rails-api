@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-    before_action :authorized, only: [:home]
+    before_action :authorized, only: [:me]
 
-    def home
+    def me
         wristband = encode_token({user_id: @user.id})
         render json: {user: UserSerializer.new(@user), token: wristband}
     end
@@ -27,10 +27,6 @@ class UsersController < ApplicationController
         end
     end
 
-    def me 
-        wristband = encode_token({user_id: @user.id})
-        render json: {user: UserSerializer.new(@user), token: wristband}
-    end
 
     private
 

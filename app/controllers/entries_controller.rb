@@ -1,6 +1,5 @@
 class EntriesController < ApplicationController
-
-    # before_action :authorized, only: [:create]
+    before_action :authorized, only: [:create]
 
     def create
         entry = @user.entries.create(entry_params)
