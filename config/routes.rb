@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   post "/login", to: 'users#login'
   get "/me", to: "users#me"
   
+  delete "/entries/:id", to: "entries#destroy"
+  patch "/entries/:id", to: "entries#update"
   post "/entries", to: 'entries#create'
 end
